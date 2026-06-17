@@ -25,6 +25,10 @@ public class HomeController {
     @Autowired
     private IssueService issueService;
 
+    @GetMapping("/home")
+    public String home() {
+        return "index";
+    }
 
     @GetMapping("/books-ui")
     public String booksPage(Model model) {
@@ -53,9 +57,9 @@ public class HomeController {
     @PostMapping("/add-user")
     public String saveUser(User user) {
     	
-//    	System.out.println(user.getName());
-//        System.out.println(user.getEmail());
-//        System.out.println(user.getPhone());
+    	System.out.println("Name= " +user.getName());
+        System.out.println("Email= " +user.getEmail());
+        System.out.println("phone= " +user.getPhone());
     	userService.addUser(user);
     	return "redirect:/users-ui";
     }
