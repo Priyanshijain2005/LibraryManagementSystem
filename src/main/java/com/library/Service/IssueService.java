@@ -7,8 +7,13 @@ import com.library.Repository.BookRepository;
 import com.library.Repository.IssueRepository;
 import com.library.entity.Book;
 import com.library.entity.Issue;
+import com.library.exception.BookNotAvailableException;
+import com.library.exception.BookNotFoundException;
+import com.library.exception.IssueNotFoundException;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class IssueService {
@@ -19,14 +24,16 @@ public class IssueService {
     @Autowired
     private BookRepository bookRepo;
 
-    // Issue Book
     public String issueBook(Long bookId, Long userId) {
 
         Book book = bookRepo.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() ->
+                        new BookNotFoundException(
+                                "Book not found with id : " + bookId));
 
         if (book.getQuantity() <= 0) {
-            return "Book not available";
+            throw new BookNotAvailableException(
+                    "Book is currently unavailable");
         }
 
         book.setQuantity(book.getQuantity() - 1);
@@ -43,20 +50,45 @@ public class IssueService {
         return "Book issued successfully";
     }
 
-    // Return Book
     public String returnBook(Long issueId) {
 
         Issue issue = issueRepo.findById(issueId)
-                .orElseThrow(() -> new RuntimeException("Issue record not found"));
+                .orElseThrow(() ->
+                        new IssueNotFoundException(
+                                "Issue record not found"));
 
         Book book = bookRepo.findById(issue.getBookId())
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() ->
+                        new BookNotFoundException(
+                                "Book not found"));
 
         book.setQuantity(book.getQuantity() + 1);
         bookRepo.save(book);
+        if(LocalDate.now().isAfter(issue.getReturnDate())){
+
+            long days =
+                    ChronoUnit.DAYS.between(
+                            issue.getReturnDate(),
+                            LocalDate.now());
+
+            issue.setFine(days * 10.0);
+        }
 
         issueRepo.delete(issue);
 
         return "Book returned successfully";
     }
+    
+    public List<Issue>getAllIssues(){
+    	return issueRepo.findAll();
+    }
+    
+    public Issue getIssueById(Long issueId) {
+    	return issueRepo.findById(issueId).orElseThrow(()->new IssueNotFoundException("Issue not found "+ issueId));
+    }
+    
+    public long countIssues() {
+    	return issueRepo.count();
+    }
+    
 }

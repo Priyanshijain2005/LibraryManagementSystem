@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.library.Repository.BookRepository;
 import com.library.entity.Book;
+import com.library.exception.BookNotFoundException;
 
 import java.util.List;
 
@@ -31,7 +32,9 @@ public class BookService {
 
     // Get Book by ID
     public Book getBookById(Long id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id) .orElseThrow(() ->
+        new BookNotFoundException(
+                "Book not found with id : " + id));
     }
 
     // Delete Book
@@ -40,14 +43,14 @@ public class BookService {
 //    }
     public void deleteBook(Long id) {
         Book book = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new BookNotFoundException("Book not found"));
         repo.delete(book);
     }
     
     //update book
     public Book updateBook(Long id, Book updatedBook) {
         Book existingBook = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found with id: " + id));
+                .orElseThrow(() -> new BookNotFoundException("Book not found with id: " + id));
 
         existingBook.setTitle(updatedBook.getTitle());
         existingBook.setAuthor(updatedBook.getAuthor());
@@ -58,10 +61,18 @@ public class BookService {
     
     public Book returnBook(Long id) {
         Book book = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+                .orElseThrow(() -> new BookNotFoundException("Book not found"));
 
         book.setQuantity(book.getQuantity() + 1);
 
         return repo.save(book);
+    }
+    
+    public List<Book>SearchBook(String title){
+    	return repo.findByTitleContainingIgnoreCase(title);
+    }
+    
+    public long countBooks() {
+    	return repo.count();
     }
 }

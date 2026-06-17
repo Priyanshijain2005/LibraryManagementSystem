@@ -13,25 +13,45 @@ public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long bookId;
     private Long userId;
     private LocalDate issueDate;
     private LocalDate returnDate;
+    private Double fine;
+    private boolean returned;
     
     
 	public Issue() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Issue(Long id, Long bookId, Long userId, LocalDate issueDate, LocalDate returnDate) {
+
+	public Issue(Long id, Long bookId, Long userId, LocalDate issueDate, LocalDate returnDate, Double fine,
+			boolean returned) {
 		super();
 		this.id = id;
 		this.bookId = bookId;
 		this.userId = userId;
 		this.issueDate = issueDate;
 		this.returnDate = returnDate;
+		this.fine = fine;
+		this.returned = returned;
+	}
+
+	public Double getFine() {
+		return fine;
+	}
+
+	public void setFine(Double fine) {
+		this.fine = fine;
+	}
+
+	public boolean isReturned() {
+		return returned;
+	}
+
+	public void setReturned(boolean returned) {
+		this.returned = returned;
 	}
 
 	public Long getId() {

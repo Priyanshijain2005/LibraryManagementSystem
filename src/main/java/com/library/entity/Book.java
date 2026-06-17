@@ -12,14 +12,14 @@ public class Book {
 	private Long id;
 	private String title;
 	private String author;
-	private int quantity;
+	private Integer quantity;
 	
 	
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Book(Long id, String title, String author, int quantity) {
+	public Book(Long id, String title, String author, Integer quantity) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -44,10 +44,10 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	

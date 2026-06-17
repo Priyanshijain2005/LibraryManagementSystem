@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Users</title>
+<style>
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+}
+
+th{
+background:#2c3e50;
+color:white;
+}
+
+button{
+padding:8px 15px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Users</h1>
+
+<a href="/add-user">
+<button>Add User</button>
+</a>
+
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+		</tr>	
+	</thead>
+	<tbody>
+		<tr th:each="user : ${users}">
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.name}"></td>
+			<td th:text="${user.email}"></td>
+			<td th:text="${user.phone}"></td>
+		</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

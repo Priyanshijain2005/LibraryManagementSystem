@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Issues</title>
+<style>
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+}
+
+th{
+background:#2c3e50;
+color:white;
+}
+
+button{
+padding:8px 15px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Issued Books</h1>
+
+<a href="/issue-book">
+<button>Issue Book</button>
+</a>
+
+<table>
+	<thead>
+		<tr>
+			<th>Issue ID</th>
+			<th>Book ID</th>
+			<th>User ID</th>
+			<th>Issue Date</th>
+			<th>Return Date</th>
+		</tr>
+	</thead>
+	
+<tbody>
+    <tr th:each="issue : ${issues}">
+        <td th:text="${issue.id}"></td>
+        <td th:text="${issue.bookId}"></td>
+        <td th:text="${issue.userId}"></td>
+        <td th:text="${issue.issueDate}"></td>
+        <td th:text="${issue.returnDate}"></td>
+    </tr>
+</tbody>
+
+</table>
+
+</body>
+</html>

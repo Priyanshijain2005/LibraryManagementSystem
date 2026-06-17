@@ -13,12 +13,18 @@ public class User {
 
     private String name;
     private String email;
+    private String phone;
     
-	public User(Long id, String name, String email) {
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public User(Long id, String name, String email,String phone) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.phone=phone;
 	}
 	public Long getId() {
 		return id;
@@ -38,4 +44,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 }

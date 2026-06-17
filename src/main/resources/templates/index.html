@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Library Dashboard</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">📚 Library System</div>
+
+    <div class="nav-links">
+        <a href="/books-ui">Books</a>
+        <a href="/users-ui">Users</a>
+        <a href="/issues-ui">Issues</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h1>Dashboard</h1>
+
+    <br>
+
+    <div class="cards">
+
+        <div class="card">
+		    <h2>Total Books</h2>
+		    <h1 th:text="${stats.totalBooks}"></h1>
+		</div>
+		
+		<div class="card">
+		    <h2>Total Users</h2>
+		    <h1 th:text="${stats.totalUsers}"></h1>
+		</div>
+		
+		<div class="card">
+		    <h2>Issued Books</h2>
+		    <h1 th:text="${stats.totalIssuedBooks}"></h1>
+		</div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
