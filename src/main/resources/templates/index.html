@@ -8,38 +8,29 @@
 <body>
 
 <div class="navbar">
-    <div class="logo">📚 Library System</div>
-
-    <div class="nav-links">
-        <a href="/books-ui">Books</a>
-        <a href="/users-ui">Users</a>
-        <a href="/issues-ui">Issues</a>
-    </div>
+    <a href="/">Dashboard</a>
+    <a href="/books-ui">Books</a>
+    <a href="/users-ui">Users</a>
+    <a href="/issues-ui">Issues</a>
 </div>
 
-<div class="container">
+<h1>Library Dashboard</h1>
 
-    <h1>Dashboard</h1>
+<div class="dashboard">
 
-    <br>
+    <div class="dashboard-card">
+        <h3>Total Books</h3>
+        <h1 th:text="${stats.totalBooks}"></h1>
+    </div>
 
-    <div class="cards">
+    <div class="dashboard-card">
+        <h3>Total Users</h3>
+        <h1 th:text="${stats.totalUsers}"></h1>
+    </div>
 
-        <div class="card">
-		    <h2>Total Books</h2>
-		    <h1 th:text="${stats.totalBooks}"></h1>
-		</div>
-		
-		<div class="card">
-		    <h2>Total Users</h2>
-		    <h1 th:text="${stats.totalUsers}"></h1>
-		</div>
-		
-		<div class="card">
-		    <h2>Issued Books</h2>
-		    <h1 th:text="${stats.totalIssuedBooks}"></h1>
-		</div>
-
+    <div class="dashboard-card">
+        <h3>Issued Books</h3>
+        <h1 th:text="${stats.totalIssuedBooks}"></h1>
     </div>
 
 </div>

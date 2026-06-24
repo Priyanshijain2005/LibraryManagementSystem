@@ -74,7 +74,8 @@ public class IssueService {
             issue.setFine(days * 10.0);
         }
 
-        issueRepo.delete(issue);
+        issue.setReturned(true);
+        issueRepo.save(issue);
 
         return "Book returned successfully";
     }

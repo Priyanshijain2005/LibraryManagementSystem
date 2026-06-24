@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.Service.BookService;
 import com.library.Service.IssueService;
@@ -42,6 +44,12 @@ public class HomeController {
     	model.addAttribute("users", userService.getAllUsers());
         return "Users";
     }
+    
+    @GetMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/users-ui";
+    }
 
     @GetMapping("/issues-ui")
     public String issuesPage(Model model) {
@@ -75,6 +83,12 @@ public class HomeController {
     	return "redirect:/issues-ui";
     }
 
+    @GetMapping("/return-book/{id}")
+    public String returnBook(@PathVariable Long id){
+        issueService.returnBook(id);
+        return "redirect:/issues-ui";
+    }
+    
     @GetMapping("/add-book")
     public String addBookPage() {
         return "add-book";
@@ -86,5 +100,15 @@ public class HomeController {
         bookService.addBook(book);
 
         return "redirect:/books-ui";
+    }
+    
+    @GetMapping("/search-book")
+    public String searchBook(@RequestParam String keyword,
+                             Model model) {
+
+        model.addAttribute("books",
+                bookService.SearchBook(keyword));
+
+        return "Book";
     }
 }

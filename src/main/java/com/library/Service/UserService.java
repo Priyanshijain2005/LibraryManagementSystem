@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.library.Repository.IssueRepository;
 import com.library.Repository.UserRepository;
 import com.library.entity.User;
 import com.library.exception.UserNotFoundException;
@@ -14,6 +15,9 @@ public class UserService {
 
     @Autowired
     private UserRepository repo;
+    
+    @Autowired
+    private IssueRepository issueRepo;
 
     public User addUser(User user){
         return repo.save(user);
@@ -29,7 +33,14 @@ public class UserService {
                         new UserNotFoundException("User not found"));
     }
 
-    public void deleteUser(Long id){
+ 
+    public void deleteUser(Long id) {
+
+        if(issueRepo.existsByUserId(id)) {
+            throw new RuntimeException(
+                "Cannot delete user. User has issued books.");
+        }
+
         repo.deleteById(id);
     }
     

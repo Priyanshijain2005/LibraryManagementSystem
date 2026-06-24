@@ -5,24 +5,56 @@
 
 <style>
 
-table{
-width:100%;
-border-collapse:collapse;
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    padding:30px;
 }
 
-th,td{
-padding:12px;
-border:1px solid #ddd;
+h1{
+    color:#2c3e50;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 th{
-background:#2c3e50;
-color:white;
+    background:#2c3e50;
+    color:white;
+    padding:12px;
 }
 
-button{
-padding:8px 15px;
-cursor:pointer;
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f1f1f1;
+}
+
+.add-btn,.search-btn{
+    background:#3498db;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#2980b9;
+}
+
+input{
+    padding:10px;
+    width:250px;
 }
 
 </style>
@@ -32,8 +64,13 @@ cursor:pointer;
 
 <h1>Books Management</h1>
 
+<form action="/search-book" method="get">
+    <input type="text" name="keyword" placeholder="Search book...">
+    <button type="submit" class="search-btn">Search</button>
+</form>
+
 <a href="/add-book">
-<button>Add Book</button>
+<button class="add-btn">Add Book</button>
 </a>
 
 <table>
@@ -51,7 +88,13 @@ cursor:pointer;
             <td th:text="${book.id}"></td>
             <td th:text="${book.title}"></td>
             <td th:text="${book.author}"></td>
-            <td th:text="${book.quantity}"></td>
+            <td><span th:if="${book.quantity > 0}"
+              th:text="${book.quantity}">
+	        </span>
+	        <span th:if="${book.quantity == 0}"
+              style="color:red;font-weight:bold;">
+              Out of Stock</span>
+    		</td>
         </tr>
     </tbody>
 </table>

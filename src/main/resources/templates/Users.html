@@ -4,24 +4,63 @@
 <title>Users</title>
 <style>
 
-table{
-width:100%;
-border-collapse:collapse;
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    padding:30px;
 }
 
-th,td{
-padding:12px;
-border:1px solid #ddd;
+h1{
+    color:#2c3e50;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 th{
-background:#2c3e50;
-color:white;
+    background:#34495e;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f8f9fa;
+}
+
+.delete-btn{
+    background:#e74c3c;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.delete-btn:hover{
+    background:#c0392b;
 }
 
 button{
-padding:8px 15px;
-cursor:pointer;
+    background:#3498db;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2980b9;
 }
 
 </style>
@@ -42,6 +81,7 @@ cursor:pointer;
 			<th>Name</th>
 			<th>Email</th>
 			<th>Phone</th>
+			<th>Action</th>
 		</tr>	
 	</thead>
 	<tbody>
@@ -50,6 +90,10 @@ cursor:pointer;
 			<td th:text="${user.name}"></td>
 			<td th:text="${user.email}"></td>
 			<td th:text="${user.phone}"></td>
+			<td><a th:href="@{/delete-user/{id}(id=${user.id})}">
+		        <button class="delete-btn">Delete</button>
+		    </a></td>
+			
 		</tr>
 	</tbody>
 </table>

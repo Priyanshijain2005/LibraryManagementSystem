@@ -41,4 +41,5 @@ public class UserController {
         service.deleteUser(id);
         return "User Deleted";
     }
+    
 }
